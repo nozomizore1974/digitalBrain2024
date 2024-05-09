@@ -1,0 +1,16 @@
+%
+% This is a model for simulaiton conducting.
+%
+
+function results = simulator(connectome, size, model, step, period, stim)
+model = str2func(model);
+%% activity-sim
+if (~exist("stim", "var"))
+    apax = model(connectome, size, step, period);
+else
+    apax = model(connectome, size, step, period, stim);
+end
+% plt(apax);
+
+%% bold-sim
+end

@@ -1,0 +1,54 @@
+%% preparation
+% clc
+clear
+close all
+
+%% loading
+loading
+
+%% pre-process
+cion = 10 * ion;
+cpax = 60 * (10.^(pax)-1) .* (pax>0);
+% cpax = -1/9 * log(pax + ~(pax>0));
+%% Parameter setting
+step = 0.1;% ms
+period = 1000;% ms
+
+%% stimulus
+stim = 0 * ones(1, 1 + period / step);
+stim(400/step:600/step) = 0.33;
+% stim(60/step:80/step) = 1;
+% stim(150/step:180/step) = 1;
+% stim(100/step:120/step) = 1;
+
+%% simulation
+close all
+% aion = reducedWongWang(cion, 192, 0.1, 1000);
+% apax = reducedWongWang(cpax, 232, 0.1, 200);
+% atvb = reducedWongWang(ctvb, 76, 0.1, 1000);
+% apax = Oscillator2D(cpax, 232, 0.1, 1000);
+apax = Wilson_Cowans(cpax, 232, step, period, stim);
+plt(apax);
+
+%% BOLD-based sim
+% bion = bold(aion);
+bpax = bold(apax);
+% btvb = bold(atvb);
+
+% plt(bion);
+plt(bpax);
+% plt(btvb);
+% plt(bmvb);
+
+%% post-process
+% close all
+% fplt(bion);
+% fplt(btvb);
+% fplt(bmvb);
+fc = fplt(bpax);
+figure;imagesc(fc .* (fc>0));colorbar
+
+%% trials
+result = simluator(cpax, 232, "Wilson_Cowans", 0.1, 1000, stim);
+%% comments
+plt(result.act);

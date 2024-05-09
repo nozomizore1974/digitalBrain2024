@@ -1,0 +1,23 @@
+%
+% This is a pipeline for simulaiton conducting.
+%
+
+function results = simulator(connectome, size, model, step, period, stim)
+model = str2func(model);
+%% activity-sim
+if (~exist("stim", "var"))
+    a = model(connectome, size, step, period);
+else
+    a = model(connectome, size, step, period, stim);
+end
+plt(a);
+
+%% bold-sim
+b = bold(a);
+
+%% correl-cal
+fc = corrcoef(b{2}');
+FC = zeros(size);
+%% results
+results = struct("act", a, "bold", b, "fc", fc);
+end
