@@ -1,13 +1,13 @@
 function flow = flow(series)
 % This is the function deriving flow induction and vasolidatory signal from brain activity.
 % 
-t = series{1}(5000:end);
-p = series{2}(:, 5000:end);
+t = series{1};
+p = series{2};
 h = series{4};
 
 
 s = size(p, 1);
-q(:, 1) = ones(s, 1);
+q(:, 1) = zeros(s, 1);
 f(:, 1) = ones(s, 1);
 kappa = 1/1.54;
 gamma = 1/1.44;
@@ -21,6 +21,8 @@ for k = 1:size(t, 2) - 1
     f(:, k + 1) = f(:, k) + h * df;
 end
 
-flow = {t, f, inputname(1), h, series{5}};
-% vaso = {t, q, inputname, h, series{5}};
+flow = {t, f, "f: " + inputname(1), h, series{5}};
+% vaso = {t, q, "q: " + inputname(1), h, series{5}};
+% plt(vaso)
+% plt(flow)
 end

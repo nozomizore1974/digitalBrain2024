@@ -1,3 +1,7 @@
+MATLAB/bdtoolbox-2023a/
 .DS_Store
+data/
 delayDemo/
-./data/
+*.md
+*.png
+workspace

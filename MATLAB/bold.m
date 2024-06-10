@@ -10,15 +10,15 @@ function bold = bold(series)
 % lambda = Delta_S/S0 = V0 * [k1*(1-q) + k2*(1-q/v) + k3*(1-v)];
 
 % series = amvb;
-t = series{1}(5000:end);
-p = series{2}(:, 5000:end);
+t = series{1};
+p = series{2};
 h = series{4};
 time = series{5};
 
 f_in = flow(series);
 f = f_in{2};
 
-a = 0.6;
+a = 0.4;
 E0 = 0.6;
 tau = 2;
 
@@ -26,7 +26,8 @@ k1 = 7 * E0;
 % k2 = 2;
 k2 = 2 * E0;
 k3 = 2 * E0 - 0.2;
-V = 0.2 ;
+% V = 0.2 ;
+V = 1;
 v = ones(size(p));
 q = ones(size(p));
 
